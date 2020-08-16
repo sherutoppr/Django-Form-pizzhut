@@ -1,0 +1,85 @@
+{% extends 'pizza/base.html' %}
+
+{% load widget_tweaks %}
+{% block body %}
+  <div class="container">
+        <h1> Order a Pizza </h1>
+        <h2>{{ note }}</h2>
+
+        {% if created_pizza_pk %}
+            <a href="{% url 'edit-order' created_pizza_pk %}">Edit your ordered pizza</a>
+        {% endif %}
+
+        <form action="{% url 'order' %}" method="post" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            {% for field in pizzaform %}
+
+                <div class="form-group">
+                {{ field.errors }}
+                {{ field.label_tag }}
+                {% render_field field class="form-control" %}
+                </div>
+
+            {% endfor %}
+
+            <input type="submit" value="Order Pizza">
+        </form>
+
+        <br><br>
+
+        <h1> Want more Pizza ?</h1>
+
+        <form action="{% url 'pizzas' %}" method="get">
+            {{ multiple_form }}
+             <input type="submit" value="Get Pizzas">
+        </form>
+
+  </div>
+{% endblock %}
+
+
+
+
+
+
+
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>pizzahut-order</title>#}
+{#</head>#}
+{#<body>#}
+{#    <h1> Order a Pizza </h1>#}
+{#    <h2>{{ note }}</h2>#}
+{#    {% if created_pizza_pk %}#}
+{#        <a href="{% url 'edit-order' created_pizza_pk %}">Edit your ordered pizza</a>#}
+{#    {% endif %}#}
+{#    <form action="{% url 'order' %}" method="post" enctype="multipart/form-data">#}
+{#        {% csrf_token %}#}
+{#        {{ pizzaform.as_p }}#}
+{#        <label for="topping1">Topping 1: </label>#}
+{#        <input id="topping1" type="text" name="topping1">#}
+{##}
+{#        <label for="topping2">Topping 2: </label>#}
+{#        <input id="topping2" type="text" name="topping1">#}
+{##}
+{#        <label for="size">Size : </label>#}
+{#        <select id="size" name="size">#}
+{#            <option value="small"> Small</option>#}
+{#            <option value="medium"> Medium</option>#}
+{#            <option value="large">Large</option>#}
+{#        </select>#}
+{##}
+{#        <input type="submit" value="Order Pizza">#}
+{#    </form>#}
+{#    <br><br>#}
+{#    <h1> Want more Pizza ?</h1>#}
+{#    <form action="{% url 'pizzas' %}" method="get">#}
+{#        {{ multiple_form }}#}
+{#         <input type="submit" value="Get Pizzas">#}
+{#    </form>#}
+{#</body>#}
+{#</html>#}
